@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -52,6 +53,10 @@ public class Main2Activity extends AppCompatActivity {
 
         }else {
 
+            String name=intent.getStringExtra("name");
+            editText.setText(name);
+            int position=intent.getIntExtra("position",0);
+            imageView.setImageBitmap(MainActivity.artImage.get(position));
             buton.setVisibility(View.INVISIBLE);
 
         }
@@ -59,7 +64,9 @@ public class Main2Activity extends AppCompatActivity {
 
     public void select(View view){
 
-        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+
+
+        if (Build.VERSION.SDK_INT >= 21 && (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)){
 
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2);
 
